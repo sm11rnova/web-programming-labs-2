@@ -4,7 +4,7 @@ app = Flask(__name__)
 @app.route("/")
 @app.route("/index")
 def index():
-    lab1_link = url_for("web")
+    lab1_link = url_for("lab1")
     return f'''
 <!doctype html>
 <html>
@@ -22,6 +22,25 @@ def index():
             <p>Курс: 3</p>
             <p>Год: 2024</p>
         </footer>
+    </body>
+</html>
+'''
+
+@app.route("/lab1")
+def lab1():
+    root_link = url_for("index")
+    return f'''
+<!doctype html>
+<html>
+    <head>
+        <title>Лабораторная 1</title>
+    </head>
+    <body>
+        <p>Flask — фреймворк для создания веб-приложений на языке программирования Python, 
+        использующий набор инструментов Werkzeug, а также шаблонизатор Jinja2. Относится к 
+        категории так называемых микрофреймворков — минималистичных каркасов веб-приложений,
+        сознательно предоставляющих лишь самые базовые возможности.</p>
+        <a href="{root_link}">На главную</a>
     </body>
 </html>
 '''
