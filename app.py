@@ -441,6 +441,10 @@ def custom():
         'Content-Type': 'text/html; charset=utf-8' 
     }
 
+
+
+
+
 @app.route('/lab2/a')
 def a():
     return 'без слеша'
@@ -453,15 +457,121 @@ flower_list = ['роза', 'тюльпан', 'незабудка', 'ромашк
 
 @app.route('/lab2/add_flower/<name>')
 def add_flower(name):
+    if not name:
+        return '''
+        <!doctype html>
+        <html>
+            <head>
+                <link rel="stylesheet" href="/static/main.css">
+            </head>
+            <body>
+                <h1>Ошибка 400</h1>
+                <p>Вы не задали имя цветка.</p>
+                <a href="/lab2/flowers">Посмотреть список всех цветов</a>
+            </body>
+        </html>
+        ''', 400
+    
     flower_list.append(name)
     return f'''
 <!doctype html>
 <html>
+    <head>
+        <link rel="stylesheet" href="/static/main.css">
+    </head>
     <body>
-    <h1>Добавлен новый цветок</h1>
-    <p>Название нового цветка: {name}</p>
-    <p>Всего цветов: {len(flower_list)}</p>
-    <p>Полный список: {flower_list}</p>
+        <h1>Добавлен новый цветок</h1>
+        <p>Название нового цветка: {name}</p>
+        <p>Всего цветов: {len(flower_list)}</p>
+        <p>Полный список: {', '.join(flower_list)}</p>
+        <a href="/lab2/flowers">Посмотреть список всех цветов</a>
+    </body>
+</html>
+'''
+
+@app.route('/lab2/add_flower/')
+def missing_flower_name():
+    return '''
+    <!doctype html>
+    <html>
+        <head>
+            <link rel="stylesheet" href="/static/main.css">
+        </head>
+        <body>
+            <h1>Ошибка 400</h1>
+            <p>Вы не задали имя цветка.</p>
+            <a href="/lab2/flowers">Посмотреть список всех цветов</a>
+        </body>
+    </html>
+    ''', 400
+
+@app.route('/lab2/flowers')
+def show_flowers():
+    return f'''
+<!doctype html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/static/main.css">
+    </head>
+    <body>
+        <h1>Список всех цветов</h1>
+        <p>Всего цветов: {len(flower_list)}</p>
+        <ul>
+            {''.join(f'<li>{flower}</li>' for flower in flower_list)}
+        </ul>
+        <a href="/lab2/add_flower/">Добавить новый цветок</a>
+        <a href="/lab2/clear_flowers" style="display:block; margin-top: 10px;">Очистить список цветов</a>
+    </body>
+</html>
+'''
+
+@app.route('/lab2/flowers/<int:flower_id>')
+def flower_detail(flower_id):
+    if flower_id >= len(flower_list) or flower_id < 0:
+        return '''
+        <!doctype html>
+        <html>
+            <head>
+                <link rel="stylesheet" href="/static/main.css">
+            </head>
+            <body>
+                <h1>Ошибка 404</h1>
+                <p>Цветок с таким ID не найден.</p>
+                <a href="/lab2/flowers">Посмотреть список всех цветов</a>
+            </body>
+        </html>
+        ''', 404
+
+    flower_name = flower_list[flower_id]
+    return f'''
+<!doctype html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/static/main.css">
+    </head>
+    <body>
+        <h1>Информация о цветке</h1>
+        <p>Цветок: {flower_name}</p>
+        <p>ID цветка: {flower_id}</p>
+        <a href="/lab2/flowers">Посмотреть список всех цветов</a>
+    </body>
+</html>
+'''
+
+@app.route('/lab2/clear_flowers')
+def clear_flowers():
+    global flower_list
+    flower_list = []
+    return '''
+<!doctype html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/static/main.css">
+    </head>
+    <body>
+        <h1>Список очищен</h1>
+        <p>Все цветы были удалены</p>
+        <a href="/lab2/flowers">Посмотреть список всех цветов</a>
     </body>
 </html>
 '''
@@ -485,3 +595,9 @@ def example():
 @app.route('/lab2/')
 def lab2():
     return render_template('lab2.html')
+
+@app.route('/lab2/filters')
+def filters():
+    phrase = "О <b>сколько</b> <u>нам</u> <i>открытий</i> чудных..."
+    return render_template('filter.html', phrase = phrase)
+
