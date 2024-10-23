@@ -637,3 +637,22 @@ def default_calc():
 @app.route('/lab2/calc/<int:a>')
 def redirect_to_calc(a):
     return redirect(url_for('calculate', a=a, b=1))
+
+#список книг на стороне сервера
+books = [
+    {"author": "Джордж Оруэлл", "title": "1984", "genre": "Антиутопия", "pages": 328},
+    {"author": "Ф. С. Фицджеральд", "title": "Великий Гэтсби", "genre": "Роман", "pages": 180},
+    {"author": "Лев Толстой", "title": "Война и мир", "genre": "Исторический роман", "pages": 1225},
+    {"author": "Дж. Р. Р. Толкин", "title": "Властелин колец", "genre": "Фэнтези", "pages": 1178},
+    {"author": "Габриэль Гарсиа Маркес", "title": "Сто лет одиночества", "genre": "Магический реализм", "pages": 417},
+    {"author": "Артур Конан Дойл", "title": "Приключения Шерлока Холмса", "genre": "Детектив", "pages": 307},
+    {"author": "Харуки Мураками", "title": "Норвежский лес", "genre": "Роман", "pages": 296},
+    {"author": "Джоан Роулинг", "title": "Гарри Поттер и философский камень", "genre": "Фэнтези", "pages": 223},
+    {"author": "Фёдор Достоевский", "title": "Преступление и наказание", "genre": "Роман", "pages": 671},
+    {"author": "Эрих Мария Ремарк", "title": "Три товарища", "genre": "Роман", "pages": 496}
+]
+
+#обработчик для вывода списка книг
+@app.route('/lab2/books')
+def show_books():
+    return render_template('books.html', books=books)
