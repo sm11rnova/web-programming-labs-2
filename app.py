@@ -2,6 +2,30 @@ from flask import Flask, url_for, redirect
 app = Flask(__name__)
 
 @app.route("/")
+@app.route("/index")
+def index():
+    lab1_link = url_for("web")
+    return f'''
+<!doctype html>
+<html>
+    <head>
+        <title>НГТУ, ФБ, Лабораторные работы</title>
+    </head>
+    <body>
+        <h1>НГТУ, ФБ, WEB-программирование, часть 2. Список лабораторных</h1>
+        <ul>
+            <li><a href="{lab1_link}">Первая лабораторная</a></li>
+        </ul>
+        <footer>
+            <p>ФИО: Смирнова Виктория Александровна</p>
+            <p>Группа: ФБИ-21</p>
+            <p>Курс: 3</p>
+            <p>Год: 2024</p>
+        </footer>
+    </body>
+</html>
+'''
+
 @app.route("/lab1/web")
 def web():
     return """<!doctype html>
@@ -29,7 +53,6 @@ def author():
                 <a href="/web">web</a>
             </body>
         </html>"""
-
 
 @app.route('/lab1/oak')
 def oak():
