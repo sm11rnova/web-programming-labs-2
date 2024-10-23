@@ -8,28 +8,28 @@ body {
 }
 
 header {
-    background-color: #fce4ec; /* Нежно-розовый фон */
-    color: #880e4f; /* Глубокий розовый цвет текста */
+    background-color: #fce4ec; 
+    color: #880e4f; 
     text-align: center;
     padding: 20px;
     font-size: 24px;
     font-weight: bold;
-    border-bottom: 2px solid #f8bbd0; /* Лёгкая граница внизу */
+    border-bottom: 2px solid #f8bbd0; 
 }
 
 main {
     padding: 20px;
-    background-color: #fff; /* Белый фон для контента */
+    background-color: #fff; 
     margin: 20px auto;
     max-width: 800px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Нежная тень для объёма */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
     border-radius: 10px;
 }
 
 p {
     font-size: 18px;
     margin-bottom: 20px;
-    color: #5e35b1; /* Нежный фиолетовый цвет текста */
+    color: #5e35b1; 
 }
 
 footer {
@@ -44,18 +44,18 @@ footer {
 }
 
 a {
-    color: #5e35b1; /* Нежный фиолетовый цвет */
+    color: #5e35b1; 
     text-decoration: none;
     font-weight: bold;
 }
 
 a:hover {
-    color: #880e4f; /* Глубокий розовый цвет при наведении */
+    color: #880e4f; 
     text-decoration: underline;
 }
 
 h1, h2 {
-    color: #880e4f; /* Основной цвет заголовков */
+    color: #880e4f; 
 }
 
 h1 {
@@ -69,11 +69,23 @@ h2 {
 img {
     max-width: 100%;
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Лёгкая тень для картинок */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
 }
 
 sup {
     font-size: 16px;
     vertical-align: super;
-    color: #d32f2f; /* Нежный красный для экспоненты */
+    color: #d32f2f; 
+}
+
+ul {
+    list-style-type: circle; 
+    padding-left: 20px; 
+    color: #5e35b1;
+    margin-bottom: 20px; 
+}
+
+ul li {
+    margin-bottom: 10px; 
+    font-size: 18px; 
 }
