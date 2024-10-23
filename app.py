@@ -1,15 +1,20 @@
 from flask import Flask, url_for, redirect
+
 app = Flask(__name__)
+
+resource_created = False
 
 @app.route("/")
 @app.route("/index")
 def index():
     lab1_link = url_for("lab1")
+    css_path = url_for("static", filename="lab1.css")
     return f'''
 <!doctype html>
 <html>
     <head>
         <title>НГТУ, ФБ, Лабораторные работы</title>
+        <link rel="stylesheet" href="{css_path}">
     </head>
     <body>
         <h1>НГТУ, ФБ, WEB-программирование, часть 2. Список лабораторных</h1>
@@ -35,12 +40,15 @@ def lab1():
     counter_link = url_for("counter")
     custom_link = url_for("custom")
     trigger_error_link = url_for("trigger_error")
+    resource_link = url_for("resource")
+    css_path = url_for("static", filename="lab1.css")
     
     return f'''
 <!doctype html>
 <html>
     <head>
         <title>Лабораторная 1</title>
+        <link rel="stylesheet" href="{css_path}">
     </head>
     <body>
         <p>Flask — фреймворк для создания веб-приложений на языке программирования Python, использующий набор инструментов Werkzeug, а также шаблонизатор Jinja2. Относится к категории так называемых микрофреймворков — минималистичных каркасов веб-приложений, сознательно предоставляющих лишь самые базовые возможности.</p>
@@ -55,63 +63,160 @@ def lab1():
             <li><a href="{counter_link}">Счётчик посещений</a></li>
             <li><a href="{custom_link}">Кастомная страница</a></li>
             <li><a href="{trigger_error_link}">Вызвать ошибку 500</a></li>
+            <li><a href="{resource_link}">Управление ресурсом</a></li>
         </ul>
     </body>
 </html>
 '''
 
-
 @app.route("/error/400")
 def error_400():
-    return "400 Bad Request: Сервер не понял запрос.", 400
+    css_path = url_for("static", filename="lab1.css")
+    return f'''
+<!doctype html>
+<html>
+    <head>
+        <title>Ошибка 400</title>
+        <link rel="stylesheet" href="{css_path}">
+    </head>
+    <body>
+        <h1>400 Bad Request</h1>
+        <p>Сервер не понял запрос.</p>
+        <a href="/">На главную</a>
+    </body>
+</html>
+''', 400
 
 @app.route("/error/401")
 def error_401():
-    return "401 Unauthorized: Требуется аутентификация.", 401
+    css_path = url_for("static", filename="lab1.css")
+    return f'''
+<!doctype html>
+<html>
+    <head>
+        <title>Ошибка 401</title>
+        <link rel="stylesheet" href="{css_path}">
+    </head>
+    <body>
+        <h1>401 Unauthorized</h1>
+        <p>Требуется аутентификация.</p>
+        <a href="/">На главную</a>
+    </body>
+</html>
+''', 401
 
 @app.route("/error/402")
 def error_402():
-    return "402 Payment Required: Требуется оплата.", 402
+    css_path = url_for("static", filename="lab1.css")
+    return f'''
+<!doctype html>
+<html>
+    <head>
+        <title>Ошибка 402</title>
+        <link rel="stylesheet" href="{css_path}">
+    </head>
+    <body>
+        <h1>402 Payment Required</h1>
+        <p>Требуется оплата.</p>
+        <a href="/">На главную</a>
+    </body>
+</html>
+''', 402
 
 @app.route("/error/403")
 def error_403():
-    return "403 Forbidden: Доступ запрещён.", 403
+    css_path = url_for("static", filename="lab1.css")
+    return f'''
+<!doctype html>
+<html>
+    <head>
+        <title>Ошибка 403</title>
+        <link rel="stylesheet" href="{css_path}">
+    </head>
+    <body>
+        <h1>403 Forbidden</h1>
+        <p>Доступ запрещён.</p>
+        <a href="/">На главную</a>
+    </body>
+</html>
+''', 403
 
 @app.route("/error/405")
 def error_405():
-    return "405 Method Not Allowed: Метод не разрешён.", 405
+    css_path = url_for("static", filename="lab1.css")
+    return f'''
+<!doctype html>
+<html>
+    <head>
+        <title>Ошибка 405</title>
+        <link rel="stylesheet" href="{css_path}">
+    </head>
+    <body>
+        <h1>405 Method Not Allowed</h1>
+        <p>Метод не разрешён.</p>
+        <a href="/">На главную</a>
+    </body>
+</html>
+''', 405
 
 @app.route("/error/418")
 def error_418():
-    return "418 I'm a teapot: Я — чайник. RFC 2324.", 418
+    css_path = url_for("static", filename="lab1.css")
+    return f'''
+<!doctype html>
+<html>
+    <head>
+        <title>418 I'm a Teapot</title>
+        <link rel="stylesheet" href="{css_path}">
+    </head>
+    <body>
+        <h1>418 I'm a Teapot</h1>
+        <p>Я — чайник.</p>
+        <a href="/">На главную</a>
+    </body>
+</html>
+''', 418
 
 @app.route("/lab1/web")
 def web():
-    return """<!doctype html>
-        <html>
-            <body>
-                <h1>web-сервер на flask</h1>
-            </body>
-        </html>""", 200, {
-            'X-server': 'sample',
-            'Content-Type': 'text/plain; charset=utf-8'
-        }
+    css_path = url_for("static", filename="lab1.css")
+    return f'''
+<!doctype html>
+<html>
+    <head>
+        <link rel="stylesheet" href="{css_path}">
+    </head>
+    <body>
+        <h1>web-сервер на flask</h1>
+    </body>
+</html>
+''', 200, {
+        'X-server': 'sample',
+        'Content-Type': 'text/plain; charset=utf-8'
+    }
 
 @app.route("/lab1/author")
 def author():
+    css_path = url_for("static", filename="lab1.css")
     name = "Смирнова Виктория Александровна"
     group = "ФБИ-21"
     faculty = "ФБ"
 
-    return """<!doctype html>
-        <html>
-            <body>
-                <p>Студент: """ + name + """</p>
-                <p>Группа: """ + group + """</p>
-                <p>Факультет: """ + faculty + """</p>
-                <a href="/web">web</a>
-            </body>
-        </html>"""
+    return f'''
+<!doctype html>
+<html>
+    <head>
+        <link rel="stylesheet" href="{css_path}">
+    </head>
+    <body>
+        <h1>Информация об авторе</h1>
+        <p>Студент: {name}</p>
+        <p>Группа: {group}</p>
+        <p>Факультет: {faculty}</p>
+        <a href="/web">web</a>
+    </body>
+</html>
+'''
 
 @app.route('/lab1/oak')
 def oak():
@@ -137,12 +242,16 @@ def counter():
     global count
     count += 1
     reset_link = url_for('reset_counter')
+    css_path = url_for("static", filename="lab1.css")
     return f'''
 <!doctype html>
 <html>
+    <head>
+        <link rel="stylesheet" href="{css_path}">
+    </head>
     <body>
-        Сколько раз вы сюда заходили: {count}
-        <br>
+        <h1>Счётчик посещений</h1>
+        <p>Сколько раз вы сюда заходили: {count}</p>
         <a href="{reset_link}">Очистить счётчик</a>
     </body>
 </html>
@@ -153,12 +262,15 @@ def reset_counter():
     global count
     count = 0
     counter_link = url_for('counter')
+    css_path = url_for("static", filename="lab1.css")
     return f'''
 <!doctype html>
 <html>
+    <head>
+        <link rel="stylesheet" href="{css_path}">
+    </head>
     <body>
-        Счётчик очищен.
-        <br>
+        <h1>Счётчик очищен</h1>
         <a href="{counter_link}">Вернуться к счётчику</a>
     </body>
 </html>
@@ -169,53 +281,107 @@ def info():
     return redirect("/lab1/author")
 
 @app.route("/lab1/created")
-def created():
-    return '''
+def create_resource():
+    global resource_created
+    css_path = url_for("static", filename="lab1.css")
+    if not resource_created:
+        resource_created = True
+        return f'''
 <!doctype html>
 <html>
+    <head>
+        <link rel="stylesheet" href="{css_path}">
+    </head>
     <body>
-        <h1>Создано успешно</h1>
-        <div><i>что-то создано...</i><div>
+        <h1>Успешно: ресурс создан</h1>
+        <a href="/lab1/resource">Назад к ресурсу</a>
     </body>
 </html>
 ''', 201
+    else:
+        return f'''
+<!doctype html>
+<html>
+    <head>
+        <link rel="stylesheet" href="{css_path}">
+    </head>
+    <body>
+        <h1>Отказано: ресурс уже создан</h1>
+        <a href="/lab1/resource">Назад к ресурсу</a>
+    </body>
+</html>
+''', 400
+
+#обработчик для удаления ресурса
+@app.route("/lab1/delete")
+def delete_resource():
+    global resource_created
+    css_path = url_for("static", filename="lab1.css")
+    if resource_created:
+        resource_created = False
+        return f'''
+<!doctype html>
+<html>
+    <head>
+        <link rel="stylesheet" href="{css_path}">
+    </head>
+    <body>
+        <h1>Успешно: ресурс удалён</h1>
+        <a href="/lab1/resource">Назад к ресурсу</a>
+    </body>
+</html>
+''', 200
+    else:
+        return f'''
+<!doctype html>
+<html>
+    <head>
+        <link rel="stylesheet" href="{css_path}">
+    </head>
+    <body>
+        <h1>Отказано: ресурс отсутствует</h1>
+        <a href="/lab1/resource">Назад к ресурсу</a>
+    </body>
+</html>
+''', 400
+
+#родительская страница, показывающая статус ресурса и предоставляющая ссылки 
+#на создание/удаление
+@app.route("/lab1/resource")
+def resource():
+    css_path = url_for("static", filename="lab1.css")
+    if resource_created:
+        status = "Ресурс создан"
+    else:
+        status = "Ресурс ещё не создан"
+
+    create_link = url_for("create_resource")
+    delete_link = url_for("delete_resource")
+
+    return f'''
+<!doctype html>
+<html>
+    <head>
+        <link rel="stylesheet" href="{css_path}">
+    </head>
+    <body>
+        <h1>{status}</h1>
+        <a href="{create_link}">Создать ресурс</a> |
+        <a href="{delete_link}">Удалить ресурс</a>
+    </body>
+</html>
+'''
 
 @app.errorhandler(404)
 def not_found(err):
+    css_path = url_for("static", filename="lab1.css")
     img_path = url_for("static", filename="404_image.jpg")
     return f'''
 <!doctype html>
 <html>
     <head>
         <title>Страница не найдена</title>
-        <style>
-            body {{
-                font-family: Arial, sans-serif;
-                background-color: #f0f0f0;
-                text-align: center;
-                padding: 50px;
-            }}
-            h1 {{
-                font-size: 50px;
-                color: #333;
-            }}
-            p {{
-                font-size: 20px;
-                color: #666;
-            }}
-            a {{
-                text-decoration: none;
-                color: #007BFF;
-                font-size: 18px;
-            }}
-            a:hover {{
-                color: #0056b3;
-            }}
-            img {{
-                max-width: 300px;
-                margin-top: 20px;
-            }}
-        </style>
+        <link rel="stylesheet" href="{css_path}">
     </head>
     <body>
         <h1>Упс! Страница не найдена.</h1>
@@ -233,16 +399,17 @@ def trigger_error():
 
 @app.errorhandler(500)
 def internal_error(error):
+    css_path = url_for("static", filename="lab1.css")
     return f'''
 <!doctype html>
 <html>
     <head>
         <title>Ошибка на сервере</title>
+        <link rel="stylesheet" href="{css_path}">
     </head>
     <body>
         <h1>Ошибка 500 — Внутренняя ошибка сервера</h1>
-        <p>Что-то пошло не так. Пожалуйста, попробуйте вернуться позже или 
-        свяжитесь с администратором.</p>
+        <p>Что-то пошло не так. Пожалуйста, попробуйте вернуться позже или свяжитесь с администратором.</p>
         <a href="/">Вернуться на главную</a>
     </body>
 </html>
@@ -250,35 +417,14 @@ def internal_error(error):
 
 @app.route("/lab1/custom")
 def custom():
+    css_path = url_for("static", filename="lab1.css")
     img_path = url_for("static", filename="custom_image.jpg")  
     return f'''
 <!doctype html>
 <html>
     <head>
         <title>Кастомная страница</title>
-        <style>
-            body {{
-                font-family: Arial, sans-serif;
-                background-color: #fafafa;
-                text-align: center;
-                padding: 50px;
-            }}
-            h1 {{
-                font-size: 40px;
-                color: #333;
-            }}
-            p {{
-                font-size: 18px;
-                color: #666;
-                text-align: justify;
-                max-width: 800px;
-                margin: auto;
-            }}
-            img {{
-                max-width: 400px;
-                margin-top: 20px;
-            }}
-        </style>
+        <link rel="stylesheet" href="{css_path}">
     </head>
     <body>
         <h1>Добро пожаловать на кастомную страницу</h1>
