@@ -210,9 +210,8 @@ def not_found(err):
 
 @app.route("/error/trigger")
 def trigger_error():
-    return 1 / 0  # Это вызовет ошибку деления на ноль
+    return 1 / 0  
 
-# Перехватчик ошибки 500 (Internal Server Error)
 @app.errorhandler(500)
 def internal_error(error):
     return f'''
@@ -223,8 +222,56 @@ def internal_error(error):
     </head>
     <body>
         <h1>Ошибка 500 — Внутренняя ошибка сервера</h1>
-        <p>Что-то пошло не так. Пожалуйста, попробуйте вернуться позже или свяжитесь с администратором.</p>
+        <p>Что-то пошло не так. Пожалуйста, попробуйте вернуться позже или 
+        свяжитесь с администратором.</p>
         <a href="/">Вернуться на главную</a>
     </body>
 </html>
 ''', 500
+
+@app.route("/lab1/custom")
+def custom():
+    img_path = url_for("static", filename="custom_image.jpg")  
+    return f'''
+<!doctype html>
+<html>
+    <head>
+        <title>Кастомная страница</title>
+        <style>
+            body {{
+                font-family: Arial, sans-serif;
+                background-color: #fafafa;
+                text-align: center;
+                padding: 50px;
+            }}
+            h1 {{
+                font-size: 40px;
+                color: #333;
+            }}
+            p {{
+                font-size: 18px;
+                color: #666;
+                text-align: justify;
+                max-width: 800px;
+                margin: auto;
+            }}
+            img {{
+                max-width: 400px;
+                margin-top: 20px;
+            }}
+        </style>
+    </head>
+    <body>
+        <h1>Добро пожаловать на кастомную страницу</h1>
+        <p>Это пример страницы, на которой можно разместить различный текст. Flask предоставляет гибкие возможности для создания веб-приложений с различными функциональными и визуальными элементами. Вы можете легко управлять маршрутами, работать с шаблонами и даже подключать базы данных.</p>
+        <p>Flask позволяет использовать любые внешние библиотеки для разработки пользовательских интерфейсов, а также взаимодействовать с фронтендом через API. Это один из самых популярных фреймворков для небольших и средних проектов на Python.</p>
+        <p>Этот текст и изображение, которое вы видите ниже, выводятся при помощи нового маршрута. Вы также можете настраивать любые заголовки ответа для передачи дополнительной информации о странице.</p>
+        <img src="{img_path}" alt="Пример изображения">
+    </body>
+</html>
+''', 200, {
+        'Content-Language': 'ru',  
+        'X-Custom-Header-1': 'Custom-Value-1',  
+        'X-Custom-Header-2': 'Custom-Value-2',  
+        'Content-Type': 'text/html; charset=utf-8' 
+    }
