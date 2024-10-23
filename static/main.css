@@ -1,0 +1,79 @@
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+header {
+    background-color: #fce4ec; /* Нежно-розовый фон */
+    color: #880e4f; /* Глубокий розовый цвет текста */
+    text-align: center;
+    padding: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    border-bottom: 2px solid #f8bbd0; /* Лёгкая граница внизу */
+}
+
+main {
+    padding: 20px;
+    background-color: #fff; /* Белый фон для контента */
+    margin: 20px auto;
+    max-width: 800px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Нежная тень для объёма */
+    border-radius: 10px;
+}
+
+p {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #5e35b1; /* Нежный фиолетовый цвет текста */
+}
+
+footer {
+    background-color: #fce4ec;
+    color: #880e4f;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    font-size: 14px;
+}
+
+a {
+    color: #5e35b1; /* Нежный фиолетовый цвет */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    color: #880e4f; /* Глубокий розовый цвет при наведении */
+    text-decoration: underline;
+}
+
+h1, h2 {
+    color: #880e4f; /* Основной цвет заголовков */
+}
+
+h1 {
+    font-size: 32px;
+}
+
+h2 {
+    font-size: 24px;
+}
+
+img {
+    max-width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Лёгкая тень для картинок */
+}
+
+sup {
+    font-size: 16px;
+    vertical-align: super;
+    color: #d32f2f; /* Нежный красный для экспоненты */
+}
