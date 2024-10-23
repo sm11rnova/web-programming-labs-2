@@ -29,6 +29,13 @@ def index():
 @app.route("/lab1")
 def lab1():
     root_link = url_for("index")
+    web_link = url_for("web")
+    author_link = url_for("author")
+    oak_link = url_for("oak")
+    counter_link = url_for("counter")
+    custom_link = url_for("custom")
+    trigger_error_link = url_for("trigger_error")
+    
     return f'''
 <!doctype html>
 <html>
@@ -38,9 +45,21 @@ def lab1():
     <body>
         <p>Flask — фреймворк для создания веб-приложений на языке программирования Python, использующий набор инструментов Werkzeug, а также шаблонизатор Jinja2. Относится к категории так называемых микрофреймворков — минималистичных каркасов веб-приложений, сознательно предоставляющих лишь самые базовые возможности.</p>
         <a href="{root_link}">На главную</a>
+
+        <h2>Список роутов</h2>
+        <ul>
+            <li><a href="{root_link}">Главная страница</a></li>
+            <li><a href="{web_link}">Страница web-сервера</a></li>
+            <li><a href="{author_link}">Страница автора</a></li>
+            <li><a href="{oak_link}">Страница с дубом</a></li>
+            <li><a href="{counter_link}">Счётчик посещений</a></li>
+            <li><a href="{custom_link}">Кастомная страница</a></li>
+            <li><a href="{trigger_error_link}">Вызвать ошибку 500</a></li>
+        </ul>
     </body>
 </html>
 '''
+
 
 @app.route("/error/400")
 def error_400():
