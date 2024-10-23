@@ -89,3 +89,28 @@ ul li {
     margin-bottom: 10px; 
     font-size: 18px; 
 }
+
+ol {
+    list-style-type: decimal; 
+    padding-left: 20px; 
+    color: #5e35b1; 
+    margin-bottom: 20px;
+}
+
+ol li {
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+ol li:hover {
+    color: #880e4f; 
+}
+
+div {
+    background-color: #f3e5f5; 
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    border-left: 5px solid #ab47bc; 
+}
