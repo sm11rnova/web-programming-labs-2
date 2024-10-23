@@ -163,4 +163,47 @@ def created():
 
 @app.errorhandler(404)
 def not_found(err):
-    return "нет такой страницы", 404
+    img_path = url_for("static", filename="404_image.jpg")
+    return f'''
+<!doctype html>
+<html>
+    <head>
+        <title>Страница не найдена</title>
+        <style>
+            body {{
+                font-family: Arial, sans-serif;
+                background-color: #f0f0f0;
+                text-align: center;
+                padding: 50px;
+            }}
+            h1 {{
+                font-size: 50px;
+                color: #333;
+            }}
+            p {{
+                font-size: 20px;
+                color: #666;
+            }}
+            a {{
+                text-decoration: none;
+                color: #007BFF;
+                font-size: 18px;
+            }}
+            a:hover {{
+                color: #0056b3;
+            }}
+            img {{
+                max-width: 300px;
+                margin-top: 20px;
+            }}
+        </style>
+    </head>
+    <body>
+        <h1>Упс! Страница не найдена.</h1>
+        <p>Кажется, вы попали не туда. Но не волнуйтесь, мы вас вернём на главную.</p>
+        <a href="/">Вернуться на главную</a>
+        <br><br>
+        <img src="{img_path}" alt="404 Not Found">
+    </body>
+</html>
+''', 404
