@@ -9,7 +9,10 @@ def web():
             <body>
                 <h1>web-сервер на flask</h1>
             </body>
-        </html>"""
+        </html>""", 200, {
+            'X-server': 'sample',
+            'Content-Type': 'text/plain; charset=utf-8'
+        }
 
 @app.route("/author")
 def author():
@@ -71,3 +74,7 @@ def created():
     </body>
 </html>
 ''', 201
+
+@app.errorhandler(404)
+def not_found(err):
+    return "нет такой страницы", 404
