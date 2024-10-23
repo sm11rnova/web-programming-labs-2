@@ -207,3 +207,24 @@ def not_found(err):
     </body>
 </html>
 ''', 404
+
+@app.route("/error/trigger")
+def trigger_error():
+    return 1 / 0  # Это вызовет ошибку деления на ноль
+
+# Перехватчик ошибки 500 (Internal Server Error)
+@app.errorhandler(500)
+def internal_error(error):
+    return f'''
+<!doctype html>
+<html>
+    <head>
+        <title>Ошибка на сервере</title>
+    </head>
+    <body>
+        <h1>Ошибка 500 — Внутренняя ошибка сервера</h1>
+        <p>Что-то пошло не так. Пожалуйста, попробуйте вернуться позже или свяжитесь с администратором.</p>
+        <a href="/">Вернуться на главную</a>
+    </body>
+</html>
+''', 500
