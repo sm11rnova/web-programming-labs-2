@@ -2,7 +2,7 @@ from flask import Flask, url_for, redirect
 app = Flask(__name__)
 
 @app.route("/")
-@app.route("/web")
+@app.route("/lab1/web")
 def web():
     return """<!doctype html>
         <html>
@@ -14,7 +14,7 @@ def web():
             'Content-Type': 'text/plain; charset=utf-8'
         }
 
-@app.route("/author")
+@app.route("/lab1/author")
 def author():
     name = "Смирнова Виктория Александровна"
     group = "ФБИ-21"
@@ -82,9 +82,9 @@ def reset_counter():
 </html>
 '''
 
-@app.route("/info")
+@app.route("/lab1/info")
 def info():
-    return redirect("/author")
+    return redirect("/lab1/author")
 
 @app.route("/lab1/created")
 def created():
