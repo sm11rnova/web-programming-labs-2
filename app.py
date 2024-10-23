@@ -601,3 +601,39 @@ def filters():
     phrase = "О <b>сколько</b> <u>нам</u> <i>открытий</i> чудных..."
     return render_template('filter.html', phrase = phrase)
 
+@app.route('/lab2/calc/<int:a>/<int:b>')
+def calculate(a, b):
+    addition = a + b
+    subtraction = a - b
+    multiplication = a * b
+    division = a / b if b != 0 else 'Деление на ноль невозможно'
+    power = a ** b
+
+    return f'''
+<!doctype html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/static/main.css">
+        <title>Математические операции</title>
+    </head>
+    <body>
+        <h1>Результаты операций с числами {a} и {b}</h1>
+        <p>Сумма: {addition}</p>
+        <p>Разность: {subtraction}</p>
+        <p>Произведение: {multiplication}</p>
+        <p>Деление: {division}</p>
+        <p>{a}<sup>{b}</sup> = {power}</p>
+        <a href="/lab2/calc/1/1">Вернуться к значениям по умолчанию (1, 1)</a>
+    </body>
+</html>
+'''
+
+#обработчик, перенаправляющий с адреса /lab2/calc/ на /lab2/calc/1/1
+@app.route('/lab2/calc/')
+def default_calc():
+    return redirect(url_for('calculate', a=1, b=1))
+
+#обработчик, перенаправляющий с адреса /lab2/calc/<int:a> на /lab2/calc/a/1
+@app.route('/lab2/calc/<int:a>')
+def redirect_to_calc(a):
+    return redirect(url_for('calculate', a=a, b=1))
