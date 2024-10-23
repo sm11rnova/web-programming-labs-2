@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список ягод</title>
+    <link rel="stylesheet" href="/static/main.css">
+</head>
+<body>
+    <h1>Список ягод</h1>
+    <div class="berry-list">
+        {% for berry in berries %}
+        <div class="berry-item">
+            <h2>{{ berry.name }}</h2>
+            <img src="/static/{{ berry.image }}" alt="{{ berry.name }}">
+            <p>{{ berry.description }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

@@ -147,3 +147,38 @@ tr:hover td {
     background-color: #fce4ec;
     color: #880e4f;
 }
+
+.berry-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.berry-item {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    margin: 15px;
+    padding: 15px;
+    width: 200px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.berry-item h2 {
+    font-size: 20px;
+    color: #5e35b1;
+    margin-bottom: 10px;
+}
+
+.berry-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.berry-item p {
+    font-size: 16px;
+    color: #666;
+}
