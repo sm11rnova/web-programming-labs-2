@@ -20,6 +20,7 @@ def index():
         <h1>НГТУ, ФБ, WEB-программирование, часть 2. Список лабораторных</h1>
         <ul>
             <li><a href="{lab1_link}">Первая лабораторная</a></li>
+            <li><a href="/lab2">Вторая лабораторная</a></li>
         </ul>
         <footer>
             <p>ФИО: Смирнова Виктория Александровна</p>
@@ -445,6 +446,11 @@ def custom():
 
 
 
+
+
+
+
+
 @app.route('/lab2/a')
 def a():
     return 'без слеша'
@@ -465,9 +471,15 @@ def add_flower(name):
                 <link rel="stylesheet" href="/static/main.css">
             </head>
             <body>
+                <header>
+                WEB-программирование, часть 2. Лабораторная работа 2
+                </header>
                 <h1>Ошибка 400</h1>
                 <p>Вы не задали имя цветка.</p>
                 <a href="/lab2/flowers">Посмотреть список всех цветов</a>
+                <footer>
+                &copy; Виктория Смирнова, ФБИ-21, 3 курс, 2024
+                </footer>
             </body>
         </html>
         ''', 400
@@ -480,11 +492,17 @@ def add_flower(name):
         <link rel="stylesheet" href="/static/main.css">
     </head>
     <body>
+        <header>
+        WEB-программирование, часть 2. Лабораторная работа 2
+        </header>
         <h1>Добавлен новый цветок</h1>
         <p>Название нового цветка: {name}</p>
         <p>Всего цветов: {len(flower_list)}</p>
         <p>Полный список: {', '.join(flower_list)}</p>
         <a href="/lab2/flowers">Посмотреть список всех цветов</a>
+        <footer>
+        &copy; Виктория Смирнова, ФБИ-21, 3 курс, 2024
+        </footer>
     </body>
 </html>
 '''
@@ -498,9 +516,15 @@ def missing_flower_name():
             <link rel="stylesheet" href="/static/main.css">
         </head>
         <body>
+            <header>
+            WEB-программирование, часть 2. Лабораторная работа 2
+            </header>
             <h1>Ошибка 400</h1>
             <p>Вы не задали имя цветка.</p>
             <a href="/lab2/flowers">Посмотреть список всех цветов</a>
+            <footer>
+            &copy; Виктория Смирнова, ФБИ-21, 3 курс, 2024
+            </footer>
         </body>
     </html>
     ''', 400
@@ -514,6 +538,9 @@ def show_flowers():
         <link rel="stylesheet" href="/static/main.css">
     </head>
     <body>
+        <header>
+        WEB-программирование, часть 2. Лабораторная работа 2
+        </header>
         <h1>Список всех цветов</h1>
         <p>Всего цветов: {len(flower_list)}</p>
         <ul>
@@ -521,6 +548,9 @@ def show_flowers():
         </ul>
         <a href="/lab2/add_flower/">Добавить новый цветок</a>
         <a href="/lab2/clear_flowers" style="display:block; margin-top: 10px;">Очистить список цветов</a>
+        <footer>
+        &copy; Виктория Смирнова, ФБИ-21, 3 курс, 2024
+        </footer>
     </body>
 </html>
 '''
@@ -535,9 +565,15 @@ def flower_detail(flower_id):
                 <link rel="stylesheet" href="/static/main.css">
             </head>
             <body>
+                <header>
+                WEB-программирование, часть 2. Лабораторная работа 2
+                </header>
                 <h1>Ошибка 404</h1>
                 <p>Цветок с таким ID не найден.</p>
                 <a href="/lab2/flowers">Посмотреть список всех цветов</a>
+                <footer>
+                &copy; Виктория Смирнова, ФБИ-21, 3 курс, 2024
+                </footer>
             </body>
         </html>
         ''', 404
@@ -550,10 +586,16 @@ def flower_detail(flower_id):
         <link rel="stylesheet" href="/static/main.css">
     </head>
     <body>
+        <header>
+        WEB-программирование, часть 2. Лабораторная работа 2
+        </header>
         <h1>Информация о цветке</h1>
         <p>Цветок: {flower_name}</p>
         <p>ID цветка: {flower_id}</p>
         <a href="/lab2/flowers">Посмотреть список всех цветов</a>
+        <footer>
+        &copy; Виктория Смирнова, ФБИ-21, 3 курс, 2024
+        </footer>
     </body>
 </html>
 '''
@@ -569,9 +611,15 @@ def clear_flowers():
         <link rel="stylesheet" href="/static/main.css">
     </head>
     <body>
+        <header>
+        WEB-программирование, часть 2. Лабораторная работа 2
+        </header>
         <h1>Список очищен</h1>
         <p>Все цветы были удалены</p>
         <a href="/lab2/flowers">Посмотреть список всех цветов</a>
+        <footer>
+        &copy; Виктория Смирнова, ФБИ-21, 3 курс, 2024
+        </footer>
     </body>
 </html>
 '''
@@ -617,6 +665,9 @@ def calculate(a, b):
         <title>Математические операции</title>
     </head>
     <body>
+        <header>
+        WEB-программирование, часть 2. Лабораторная работа 2
+        </header>
         <h1>Результаты операций с числами {a} и {b}</h1>
         <p>Сумма: {addition}</p>
         <p>Разность: {subtraction}</p>
@@ -624,6 +675,9 @@ def calculate(a, b):
         <p>Деление: {division}</p>
         <p>{a}<sup>{b}</sup> = {power}</p>
         <a href="/lab2/calc/1/1">Вернуться к значениям по умолчанию (1, 1)</a>
+        <footer>
+        &copy; Виктория Смирнова, ФБИ-21, 3 курс, 2024
+        </footer>
     </body>
 </html>
 '''
@@ -656,3 +710,18 @@ books = [
 @app.route('/lab2/books')
 def show_books():
     return render_template('books.html', books=books)
+
+
+#cписок ягод с названиями, описанием и изображениями
+berries = [
+    {"name": "Клубника", "description": "Сладкая и сочная ягода с красным цветом.", "image": "strawberry.jpg"},
+    {"name": "Голубика", "description": "Маленькие синие ягоды, известные своим вкусом и пользой.", "image": "blueberry.jpg"},
+    {"name": "Малина", "description": "Ароматные и вкусные ягоды с ярко-красным цветом.", "image": "raspberry.jpg"},
+    {"name": "Ежевика", "description": "Темные, сочные ягоды с кисло-сладким вкусом.", "image": "blackberry.jpg"},
+    {"name": "Черника", "description": "Известна своим глубоким синим цветом и антиоксидантами.", "image": "bilberry.jpg"}
+]
+
+#обработчик для показа списка ягод с изображениями
+@app.route('/lab2/berries')
+def show_berries():
+    return render_template('berries.html', berries=berries)
