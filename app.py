@@ -1,153 +1,77 @@
 from flask import Flask, url_for, redirect, render_template, abort, request
 from lab1 import lab1
+from lab2 import lab2
 
 app = Flask(__name__)
 app.register_blueprint(lab1)
+app.register_blueprint(lab2)
+
 
 resource_created = False
 
-@app.route('/lab2/a')
-def a():
-    return 'без слеша'
-
-@app.route('/lab2/a/')
-def a2():
-    return 'со слешем'
-
-flower_list = [
-    {'name': 'роза', 'price': 100},
-    {'name': 'тюльпан', 'price': 80},
-    {'name': 'незабудка', 'price': 50},
-    {'name': 'ромашка', 'price': 30}
-]
-
-@app.route('/lab2/flowers', methods=['GET', 'POST'])
-def show_flowers():
-    if request.method == 'POST':
-        name = request.form.get('name')
-        price = request.form.get('price')
-        if name and price.isdigit():
-            flower_list.append({'name': name, 'price': int(price)})
-    return render_template('flowers.html', flowers=flower_list)
-
-@app.route('/lab2/add_flower/<name>/<int:price>')
-def add_flower(name, price):
-    if not name or price <= 0:
-        return render_template("error.html", error="Некорректное имя или цена цветка", code=400), 400
-    flower_list.append({'name': name, 'price': price})
-    return redirect(url_for('show_flowers'))
-
-@app.route('/lab2/flowers/delete/<int:flower_id>')
-def delete_flower(flower_id):
-    if 0 <= flower_id < len(flower_list):
-        del flower_list[flower_id]
-        return redirect(url_for('show_flowers'))
-    else:
-        return abort(404, "Цветок с таким ID не найден")
-
-@app.route('/lab2/clear_flowers')
-def clear_flowers():
-    flower_list.clear()
-    return redirect(url_for('show_flowers'))
-
-@app.route('/lab2/example')
-def example():
-    name = 'Виктория Смирнова'
-    lab_number = '2'
-    group = 'ФБИ-21'
-    course = '3 курс'
-    fruits = [
-        {'name': 'яблоки', 'price': 100},
-        {'name': 'груши', 'price': 120},
-        {'name': 'апельсины', 'price': 80},
-        {'name': 'мандарины', 'price': 95},
-        {'name': 'манго', 'price': 321},
-    ]
-    return render_template('example.html', name=name, lab_number=lab_number, 
-                           group=group, course=course, fruits=fruits)
-
-@app.route('/lab2/')
-def lab2():
-    return render_template('lab2.html')
-
-@app.route('/lab2/filters')
-def filters():
-    phrase = "О <b>сколько</b> <u>нам</u> <i>открытий</i> чудных..."
-    return render_template('filter.html', phrase = phrase)
-
-@app.route('/lab2/calc/<int:a>/<int:b>')
-def calculate(a, b):
-    addition = a + b
-    subtraction = a - b
-    multiplication = a * b
-    division = a / b if b != 0 else 'Деление на ноль невозможно'
-    power = a ** b
-
+@app.route("/")
+def start():
+    css_path = url_for("static", filename="lab1.css")
     return f'''
 <!doctype html>
 <html>
     <head>
-        <link rel="stylesheet" href="/static/main.css">
-        <title>Математические операции</title>
+        <title>НГТУ, ФБ, Лабораторные работы</title>
+        <link rel="stylesheet" href="{css_path}">
     </head>
     <body>
-        <header>
-        WEB-программирование, часть 2. Лабораторная работа 2
-        </header>
-        <h1>Результаты операций с числами {a} и {b}</h1>
-        <p>Сумма: {addition}</p>
-        <p>Разность: {subtraction}</p>
-        <p>Произведение: {multiplication}</p>
-        <p>Деление: {division}</p>
-        <p>{a}<sup>{b}</sup> = {power}</p>
-        <a href="/lab2/calc/1/1">Вернуться к значениям по умолчанию (1, 1)</a>
+        <h1>НГТУ, ФБ, WEB-программирование, часть 2. Список лабораторных</h1>
+        <ul>
+            <li><a href="/lab1">Первая лабораторная</a></li>
+            <li><a href="/lab2">Вторая лабораторная</a></li>
+        </ul>
         <footer>
-        &copy; Виктория Смирнова, ФБИ-21, 3 курс, 2024
+            <p>ФИО: Смирнова Виктория Александровна</p>
+            <p>Группа: ФБИ-21</p>
+            <p>Курс: 3</p>
+            <p>Год: 2024</p>
         </footer>
     </body>
 </html>
 '''
 
-#обработчик, перенаправляющий с адреса /lab2/calc/ на /lab2/calc/1/1
-@app.route('/lab2/calc/')
-def default_calc():
-    return redirect(url_for('calculate', a=1, b=1))
+@app.errorhandler(404)
+def err40(err):
+    css_path = url_for("static", filename="lab1.css")
+    img_path = url_for("static", filename="404_image.jpg")
+    return f'''
+<!doctype html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <title>Ошибка 404</title>
+        <link rel="stylesheet" href="{css_path}">
+    </head>
+    <body>
+        <div class="error-container">
+            <h1>Ошибка 404</h1>
+            <p>Похоже, вы заблудились. Страница, которую вы ищете, не существует.</p>
+            <img src="{img_path}" alt="404 Картинка">
+            <p><a href="/">Вернуться на главную</a></p>
+        </div>
+    </body>
+</html>
+''', 404
 
-#обработчик, перенаправляющий с адреса /lab2/calc/<int:a> на /lab2/calc/a/1
-@app.route('/lab2/calc/<int:a>')
-def redirect_to_calc(a):
-    return redirect(url_for('calculate', a=a, b=1))
-
-#список книг на стороне сервера
-books = [
-    {"author": "Джордж Оруэлл", "title": "1984", "genre": "Антиутопия", "pages": 328},
-    {"author": "Ф. С. Фицджеральд", "title": "Великий Гэтсби", "genre": "Роман", "pages": 180},
-    {"author": "Лев Толстой", "title": "Война и мир", "genre": "Исторический роман", "pages": 1225},
-    {"author": "Дж. Р. Р. Толкин", "title": "Властелин колец", "genre": "Фэнтези", "pages": 1178},
-    {"author": "Габриэль Гарсиа Маркес", "title": "Сто лет одиночества", "genre": "Магический реализм", "pages": 417},
-    {"author": "Артур Конан Дойл", "title": "Приключения Шерлока Холмса", "genre": "Детектив", "pages": 307},
-    {"author": "Харуки Мураками", "title": "Норвежский лес", "genre": "Роман", "pages": 296},
-    {"author": "Джоан Роулинг", "title": "Гарри Поттер и философский камень", "genre": "Фэнтези", "pages": 223},
-    {"author": "Фёдор Достоевский", "title": "Преступление и наказание", "genre": "Роман", "pages": 671},
-    {"author": "Эрих Мария Ремарк", "title": "Три товарища", "genre": "Роман", "pages": 496}
-]
-
-#обработчик для вывода списка книг
-@app.route('/lab2/books')
-def show_books():
-    return render_template('books.html', books=books)
-
-
-#cписок ягод с названиями, описанием и изображениями
-berries = [
-    {"name": "Клубника", "description": "Сладкая и сочная ягода с красным цветом.", "image": "strawberry.jpg"},
-    {"name": "Голубика", "description": "Маленькие синие ягоды, известные своим вкусом и пользой.", "image": "blueberry.jpg"},
-    {"name": "Малина", "description": "Ароматные и вкусные ягоды с ярко-красным цветом.", "image": "raspberry.jpg"},
-    {"name": "Ежевика", "description": "Темные, сочные ягоды с кисло-сладким вкусом.", "image": "blackberry.jpg"},
-    {"name": "Черника", "description": "Известна своим глубоким синим цветом и антиоксидантами.", "image": "bilberry.jpg"}
-]
-
-#обработчик для показа списка ягод с изображениями
-@app.route('/lab2/berries')
-def show_berries():
-    return render_template('berries.html', berries=berries)
+@app.errorhandler(500)
+def internal_error(error):
+    css_path = url_for("static", filename="lab1.css")
+    return f'''
+<!doctype html>
+<html>
+    <head>
+        <title>Ошибка на сервере</title>
+        <link rel="stylesheet" href="{css_path}">
+    </head>
+    <body>
+        <h1>Ошибка 500 — Внутренняя ошибка сервера</h1>
+        <p>Что-то пошло не так. Пожалуйста, попробуйте вернуться позже или свяжитесь с администратором.</p>
+        <a href="/">Вернуться на главную</a>
+    </body>
+</html>
+''', 500

@@ -2,10 +2,8 @@ from flask import Blueprint, url_for, redirect, abort, request
 
 lab1 = Blueprint('lab1', __name__)
 
+
 resource_created = False
-
-
-@lab1.route("/lab1/web")
 
 
 @lab1.route("/lab1/index")
@@ -396,25 +394,6 @@ def resource():
 @lab1.route("/lab1/error/trigger")
 def trigger_error():
     return 1 / 0  
-
-
-@lab1.errorhandler(500)
-def internal_error(error):
-    css_path = url_for("static", filename="lab1.css")
-    return f'''
-<!doctype html>
-<html>
-    <head>
-        <title>Ошибка на сервере</title>
-        <link rel="stylesheet" href="{css_path}">
-    </head>
-    <body>
-        <h1>Ошибка 500 — Внутренняя ошибка сервера</h1>
-        <p>Что-то пошло не так. Пожалуйста, попробуйте вернуться позже или свяжитесь с администратором.</p>
-        <a href="/">Вернуться на главную</a>
-    </body>
-</html>
-''', 500
 
 
 @lab1.route("/lab1/custom")
