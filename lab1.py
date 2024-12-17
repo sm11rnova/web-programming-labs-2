@@ -6,36 +6,9 @@ lab1 = Blueprint('lab1', __name__)
 resource_created = False
 
 
-@lab1.route("/lab1/index")
-def index():
-    css_path = url_for("static", filename="lab1.css")
-    return f'''
-<!doctype html>
-<html>
-    <head>
-        <title>НГТУ, ФБ, Лабораторные работы</title>
-        <link rel="stylesheet" href="{css_path}">
-    </head>
-    <body>
-        <h1>НГТУ, ФБ, WEB-программирование, часть 2. Список лабораторных</h1>
-        <ul>
-            <li><a href="/lab1">Первая лабораторная</a></li>
-            <li><a href="/lab2">Вторая лабораторная</a></li>
-        </ul>
-        <footer>
-            <p>ФИО: Смирнова Виктория Александровна</p>
-            <p>Группа: ФБИ-21</p>
-            <p>Курс: 3</p>
-            <p>Год: 2024</p>
-        </footer>
-    </body>
-</html>
-'''
-
-
 @lab1.route("/lab1")
 def lab():
-    root_link = url_for("lab1.index")
+    root_link = url_for("app.py./")
     web_link = url_for("lab1.web")
     author_link = url_for("lab1.author")
     oak_link = url_for("lab1.oak")
