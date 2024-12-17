@@ -22,6 +22,7 @@ def start():
     <head>
         <title>НГТУ, ФБ, Лабораторные работы</title>
         <link rel="stylesheet" href="{css_path}">
+        <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
     </head>
     <body>
         <h1>НГТУ, ФБ, WEB-программирование, часть 2. Список лабораторных</h1>
@@ -51,6 +52,7 @@ def err40(err):
         <meta charset="UTF-8">
         <title>Ошибка 404</title>
         <link rel="stylesheet" href="{css_path}">
+        <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
     </head>
     <body>
         <div class="error-container">
@@ -72,6 +74,7 @@ def internal_error(error):
     <head>
         <title>Ошибка на сервере</title>
         <link rel="stylesheet" href="{css_path}">
+        <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
     </head>
     <body>
         <h1>Ошибка 500 — Внутренняя ошибка сервера</h1>
