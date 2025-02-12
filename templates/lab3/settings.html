@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block lab %}Лабораторная работа 3{% endblock %}
+
+{% block main %}
+    <h1>Cookies</h1>
+    <form method="get">
+        <div>
+            <label class="label" for="color">Выберите цвет текста:</label>
+            <input type="color" id="color" name="color" value="{{ color or '' }}">
+        </div>
+        <div>
+            <label class="label" for="background_color">Выберите цвет фона:</label>
+            <input type="color" id="background_color" name="background_color" value="{{ background_color or '' }}">
+        </div>
+        <div>
+            <label class="label" for="font_size">Выберите размер шрифта:</label>
+            <input type="range" id="font_size" name="font_size" min="10" max="40" value="{{ font_size or '16' }}">
+        </div>
+        <div>
+            <label class="label" for="padding">Выберите отступ:</label>
+            <input type="range" id="padding" name="padding" min="0" max="50" value="{{ padding or '' }}">
+        </div>
+        <div>
+            <button type="submit">OK</button>
+        </div>
+    </form>
+    <form method="post" action="/lab3/clear_cookies">
+        <button type="submit">Очистить куки</button>
+    </form>
+{% endblock %}
