@@ -221,3 +221,35 @@ def edit_user():
     user['password'] = new_password
 
     return redirect('/lab4/users')
+
+
+@lab4.route('/lab4/fridge', methods=['GET', 'POST'])
+def fridge():
+    if request.method == 'GET':
+        return render_template('lab4/fridge.html')
+
+    temperature = request.form.get('temperature')
+
+    if not temperature:
+        return render_template('lab4/fridge.html', error='Ошибка: не задана температура')
+
+    temperature = int(temperature)
+
+    if temperature < -12:
+        return render_template('lab4/fridge.html', error='Не удалось установить температуру — слишком низкое значение')
+    elif temperature > -1:
+        return render_template('lab4/fridge.html', error='Не удалось установить температуру — слишком высокое значение')
+    elif -12 <= temperature <= -9:
+        return render_template('lab4/fridge.html', message=f'Установлена температура: {temperature}°С', snowflakes=3)
+    elif -8 <= temperature <= -5:
+        return render_template('lab4/fridge.html', message=f'Установлена температура: {temperature}°С', snowflakes=2)
+    elif -4 <= temperature <= -1:
+        return render_template('lab4/fridge.html', message=f'Установлена температура: {temperature}°С', snowflakes=1)
+
+
+prices = {
+        'ячмень': 12345,
+        'овёс': 8522,
+        'пшеница': 8722,
+        'рожь': 14111
+    }
