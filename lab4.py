@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, redirect
 lab4 = Blueprint('lab4', __name__)
 
 
@@ -101,7 +101,24 @@ def exp():
     if x1 == 0:
         return render_template('lab4/exp.html', error = 'Число не должно быть равно 0!')
     if x2 == 0:
-        return render_template('lab4/exp.html', error = 'Число не должно быть равно 0!')#Ну если честно,возведение любого числа в степень "0" равно 1
-    #Вроде это не считается ошибкой
+        return render_template('lab4/exp.html', error = 'Число не должно быть равно 0!')
     result = x1 ** x2
     return render_template('lab4/exp.html', x1=x1, x2=x2, result=result)
+
+
+tree_count = 0
+
+@lab4.route('/lab4/tree', methods = ['GET', 'POST'])
+def tree():
+    global tree_count
+    if request.method == 'GET':
+        return render_template('lab4/tree.html', tree_count=tree_count)
+    
+    operation = request.form.get('operation')
+    
+    if operation == 'cut':
+        tree_count -= 1
+    elif operation == 'plant':
+        tree_count += 1
+
+    return render_template('lab4/tree.html', tree_count=tree_count)
