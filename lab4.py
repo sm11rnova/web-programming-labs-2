@@ -253,3 +253,34 @@ prices = {
         'пшеница': 8722,
         'рожь': 14111
     }
+
+
+@lab4.route('/lab4/grain-order', methods=['GET', 'POST'])
+def grain_order():
+    if request.method == 'GET':
+        return render_template('lab4/grain-order.html')
+
+    grain_type = request.form.get('grain_type')
+    weight = request.form.get('weight')
+
+    if not weight:
+        return render_template('lab4/grain-order.html', error='Вес не указан')
+
+    weight = float(weight)
+
+    if weight <= 0:
+        return render_template('lab4/grain-order.html', error='Вес должен быть больше 0')
+
+    if weight > 500:
+        return render_template('lab4/grain-order.html', error='Такого объема сейчас нет в наличии')
+
+
+    price_per_ton = prices.get(grain_type, 0)
+    total_cost = price_per_ton * weight
+
+    if weight > 50:
+        discount = total_cost * 0.1
+        total_cost -= discount
+        return render_template('lab4/grain-order.html', success=True, grain_type=grain_type, weight=weight, total_cost=total_cost, discount=discount)
+
+    return render_template('lab4/grain-order.html', success=True, grain_type=grain_type, weight=weight, total_cost=total_cost)

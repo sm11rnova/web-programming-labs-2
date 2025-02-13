@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block lab %}Лабораторная работа 4{% endblock %}
+
+{% block main %}
+    <div class="order-container">
+        <h1>Заказ зерна</h1>
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+        {% if success %}
+            <p class="success">Заказ успешно сформирован. Вы заказали {{ grain_type }}. Вес: {{ weight }} т. Сумма к оплате: {{ total_cost }} руб.</p>
+            {% if discount %}
+                <p>Применена скидка за большой объем: {{ discount }} руб.</p>
+            {% endif %}
+        {% else %}
+            <form method="post">
+                <div>
+                    <label for="grain_type">Тип зерна:</label>
+                    <select id="grain_type" name="grain_type">
+                        <option value="ячмень">Ячмень</option>
+                        <option value="овёс">Овёс</option>
+                        <option value="пшеница">Пшеница</option>
+                        <option value="рожь">Рожь</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="weight">Вес (в тоннах):</label>
+                    <input type="text" id="weight" name="weight">
+                </div>
+                <div>
+                    <button type="submit">Заказать</button>
+                </div>
+            </form>
+        {% endif %}
+    </div>
+{% endblock %}
