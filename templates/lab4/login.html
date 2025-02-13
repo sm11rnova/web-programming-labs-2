@@ -3,26 +3,41 @@
 {% block lab %}Лабораторная работа 4 {% endblock %}
 
 {% block main %}
+
     {% if authorized %}
-        <h1>Добро пожаловать, {{ name }}!</h1>
+        <div class="login-container">
+            <h1>Добро пожаловать, {{ name }}!</h1>
+            <div>
+                <form action="/lab4/logout" method="post">
+                    <button>Выход</button>
+                </form>
+                <a href="/lab4/users">Список пользователей</a>
+            </div>
+        </div>
     {% else %}
-        <h1>Вход</h1>
-        <h2>Пожалуйста, авторизуйтесь</h2>
-        <form method="post">
-            <div>
-                <label for="login">Пользователь:</label>
-                <input type="text" id="login" name="login" value="{{ login }}">
-            </div>
-            <div>
-                <label for="password">Пароль:</label>
-                <input type="password" id="password" name="password">
-            </div>
-            <div>{{ error }}</div>
+        <div class="login-container">
+            <h1>Вход</h1>
+            <h2>Пожалуйста, авторизуйтесь</h2>
+            <form method="post">
                 <div>
-                    <button type="submit">Войти</button>
-                    <button type="submit">Отмена</button>
+                    <label for="login">Пользователь:</label>
+                    <input type="text" id="login" name="login" value="{{ login }}">
                 </div>
-            </div>
-        </form>
+                <div>
+                    <label for="password">Пароль:</label>
+                    <input type="password" id="password" name="password">
+                </div>
+                <div>
+                    {% if error %}
+                        <p class="error">{{ error }}</p>
+                    {% endif %}
+                    <div>
+                        <button type="submit">Войти</button>
+                        <button type="submit">Отмена</button>
+                    </div>
+                </div>
+            </form>
+            <a href="/lab4/register">Зарегистрироваться</a>
+        </div>
     {% endif %}
 {% endblock %}

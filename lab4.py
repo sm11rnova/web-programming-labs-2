@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect
+from flask import Blueprint, render_template, request, redirect, session
 lab4 = Blueprint('lab4', __name__)
 
 
@@ -126,16 +126,98 @@ def tree():
     return redirect('/lab4/tree')
 
 
-@lab4.route('/lab4/login', methods=['GET', 'POST'])
+users = [
+    {'login': 'alex', 'password': '123', 'name': 'Alex Smith', 'gender': 'male'},
+    {'login': 'bob', 'password': '555', 'name': 'Bob Johnson', 'gender': 'male'},
+    {'login': 'john', 'password': '888', 'name': 'John Doe', 'gender': 'male'},
+    {'login': 'vika', 'password': '257', 'name': 'Vika Smirnova', 'gender':  'female'}
+]
+
+@lab4.route('/lab4/login', methods = ['GET', 'POST'])
 def login():
     if request.method == 'GET':
-        return render_template('lab4/login.html', authorized=False)
-    
+        authorized = 'login' in session
+        login = session.get('login', '')
+        user = next((user for user in users if user['login'] == login), None)
+        name = user['name'] if user else ''
+        return render_template('lab4/login.html', authorized=authorized, login=login, name=name)
+
     login = request.form.get('login')
     password = request.form.get('password')
-    
-    if login == 'alex' and password == '123':
-        return render_template('lab4/login.html', lodin=login, authorized=True)
-    
-    error = 'Неверные логин и/или пароль'
-    return render_template('lab4/login.html', error=error, authorized=False)
+
+    if not login:
+        return render_template('lab4/login.html', error='не введён логин', authorized=False, login='', password='')
+
+    if not password:
+        return render_template('lab4/login.html', error='не введён пароль', authorized=False, login=login, password='')
+
+    user = next((user for user in users if user['login'] == login and user['password'] == password), None)
+    if user:
+        session['login'] = login
+        return redirect('/lab4/login')
+
+    return render_template('lab4/login.html', error='неверные логин и/или пароль', authorized=False, login='', password='')
+
+@lab4.route('/lab4/logout', methods = ['GET', 'POST'])
+def logout():
+    session.pop('login', None)
+    return redirect('/lab4/login')
+
+@lab4.route('/lab4/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'GET':
+        return render_template('lab4/register.html')
+
+    login = request.form.get('login')
+    password = request.form.get('password')
+    name = request.form.get('name')
+    gender = request.form.get('gender')
+
+    if not login or not password or not name or not gender:
+        return render_template('lab4/register.html', error='Все поля должны быть заполнены')
+
+    if any(user['login'] == login for user in users):
+        return render_template('lab4/register.html', error='Пользователь с таким логином уже существует')
+
+    users.append({'login': login, 'password': password, 'name': name, 'gender': gender})
+    return redirect('/lab4/login')
+
+@lab4.route('/lab4/users', methods=['GET'])
+def users_list():
+    if 'login' not in session:
+        return redirect('/lab4/login')
+
+    login = session['login']
+    return render_template('lab4/users.html', users=users, current_user=login)
+
+@lab4.route('/lab4/delete_user', methods=['POST'])
+def delete_user():
+    if 'login' not in session:
+        return redirect('/lab4/login')
+
+    login = session['login']
+    users[:] = [user for user in users if user['login'] != login]
+    session.pop('login', None)
+    return redirect('/lab4/login')
+
+@lab4.route('/lab4/edit_user', methods=['GET', 'POST'])
+def edit_user():
+    if 'login' not in session:
+        return redirect('/lab4/login')
+
+    login = session['login']
+    user = next((user for user in users if user['login'] == login), None)
+
+    if request.method == 'GET':
+        return render_template('lab4/edit_user.html', user=user)
+
+    new_name = request.form.get('name')
+    new_password = request.form.get('password')
+
+    if not new_name or not new_password:
+        return render_template('lab4/edit_user.html', user=user, error='Все поля должны быть заполнены')
+
+    user['name'] = new_name
+    user['password'] = new_password
+
+    return redirect('/lab4/users')
