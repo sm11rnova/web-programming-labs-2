@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block lab %}Лабораторная работа 5{% endblock %}
+
+{% block main %}
+    <h1>Статьи</h1>
+
+    {% if articles %}
+        {% for article in articles %}
+            <div class="article">
+                <h2>
+                    {{ article['title'] }}
+                    {% if article['is_favorite'] %}
+                        <span style="color: gold;">★</span>
+                    {% endif %}
+                </h2>
+                <blockquote>{{ article['article_text'] }}</blockquote>
+                <form action="/lab5/toggle_favorite/{{ article['id'] }}" method="post" style="display: inline;">
+                    <button type="submit">
+                        {% if article['is_favorite'] %}
+                            Убрать из любимых
+                        {% else %}
+                            Добавить в любимые
+                        {% endif %}
+                    </button>
+                </form>
+                <a href="/lab5/edit/{{ article['id'] }}">Редактировать</a>
+                <a href="/lab5/delete/{{ article['id'] }}">Удалить</a>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>У вас пока нет статей. <a href="/lab5/create">Создать статью</a>.</p>
+    {% endif %}
+{% endblock %}

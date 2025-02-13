@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block lab %} Лабораторная работа 5 {% endblock %}
+
+{% block main %}
+    <h1>
+        Flask и БД
+    </h1>
+    <ol class="list-container">
+        <li><a href="/lab5/login">Вход</a></li>
+        <li><a href="/lab5/register">Регистрация</a></li>
+        <li><a href="/lab5/articles">Список статей</a></li>
+        <li><a href="/lab5/create_articles">Создать статью</a></li>
+        <li><a href="/lab5/users">Список пользователей</a></li>
+    </ol>
+    <div>
+        <span>
+            {% if username %}
+            {{ username }}
+            {% else %}
+                Anonymous
+            {% endif %}
+        </span>
+    </div>
+    <div>
+        {% if username %}
+        <a href="/lab5/logout">Выйти</a>
+    {% endif %}
+    </div>
+{% endblock %}
+
+   
